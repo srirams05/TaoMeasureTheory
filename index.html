@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Book</title>
+  <style>
+    body {
+      font-family: "Arial", sans-serif; /* Choose a web-safe font */
+      line-height: 1.6;
+      margin: 20px;
+      background-color: #f4f4f4; /* Light gray background */
+      color: #333; /* Darker text for contrast */
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #336699; /* A pleasant blue */
+    }
+
+    .chapters {
+      display: flex;
+      flex-wrap: wrap; /* Allow wrapping to multiple lines */
+      justify-content: center; /* Center horizontally */
+    }
+
+    .chapter {
+      width: 300px; /* Adjust width as needed */
+      margin: 10px;
+      padding: 15px;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+      text-align: center;
+    }
+
+    .chapter h2 {
+      margin-bottom: 10px;
+      color: #336699;
+    }
+
+    .chapter a {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #336699;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background-color 0.3s ease; /* Smooth hover transition */
+    }
+
+    .chapter a:hover {
+      background-color: #224466;
+    }
+  </style>
+</head>
+<body>
+  <h1>My Book</h1>
+  <div class="chapters">
+    <div class="chapter">
+      <h2>Multivariable Calculus basic stuff</h2>
+      <a href="TaoMeasureTheory.html">Read Chapter 1</a>
+    </div>
+    <div class="chapter">
+      <h2>Tangent Structure of Manifolds</h2>
+      <a href="AnalysisToolkit.html">Read Chapter 2</a>
+    </div>
+    <div class="chapter">
+      <h2>Chapter 3: Advanced Topics</h2>
+      <a href="chapter3.html">Read Chapter 3</a>
+    </div>
+    <!-- Add more chapters here -->
+  </div>
+</body>
+</html>
