@@ -1,318 +1,350 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
   <meta charset="utf-8" />
-  <title></title>
-  <link rel="stylesheet" href="styles.css">
-  </script> </head><script type="text/javascript" id="MathJax-script" async
-  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
-  </script>  
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Analysis Tricks</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="styles.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
+</head>
 <body>
-  <nav>
-    <a href="index.html" style="display: block; text-align: center; padding: 10px; background-color: #f0f0f0; text-decoration: none; color: #333; border-radius: 5px; margin-bottom: 10px;">Back to Home</a>
-    <ul>
-    <li><a href="#coverings-dyadic-decompositions-and-grids"
-    id="toc-coverings-dyadic-decompositions-and-grids">2) Coverings,
-    Dyadic Decompositions, and Grids</a></li>
-    <li><a href="#approximation-schemes-and-convergence-theorems"
-    id="toc-approximation-schemes-and-convergence-theorems">4)
-    Approximation Schemes and Convergence Theorems</a></li>
-    <li><a href="#almost-everywhere-and-null-sets"
-    id="toc-almost-everywhere-and-null-sets">6) “Almost Everywhere” and
-    Null Sets</a></li>
-    <li><a href="#diagonalization-and-exhaustion"
-    id="toc-diagonalization-and-exhaustion">8) Diagonalization and
-    Exhaustion</a></li>
-    <li><a href="#putting-it-all-together"
-    id="toc-putting-it-all-together">10) Putting It All
-    Together</a></li>
-    </ul>
-  </nav>
-  <article>
-    <p>Below is a (necessarily incomplete) “tool‐kit” of standard
-    methods and “tricks” frequently employed in real analysis and
-    measure theory in (^d). They appear repeatedly in proofs of
-    classical theorems and estimates, and many of them have been
-    famously described as “an epsilon in the room” by Terence Tao. The
-    list is grouped by theme for convenience; in practice these
-    techniques often blend together.</p>
-    <table>
-    <colgroup>
-    <col style="width: 100%" />
-    </colgroup>
-    <thead>
-    <tr>
-    <th style="text-align: left;">1) Epsilon–Delta / Epsilon–N
-    Arguments</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-    <td style="text-align: left;">• (Classical) ()–() proofs. The most
-    basic limiting procedure: given (&gt; 0), find a (&gt; 0) (or other
-    small parameter) ensuring a certain property holds. Used everywhere
-    from basic topology (defining continuity) to measure‐theoretic
-    convergence statements.</td>
-    </tr>
-    <tr>
-    <td style="text-align: left;">• (/2^n) (or “halving”) trick. Instead
-    of trying to fit an entire small () at once, one splits an () into
-    (finitely or countably many) smaller pieces (, , ) so that each
-    piece can be handled more easily. Often seen in proofs of uniform
-    convergence or in constructing countable covers.</td>
-    </tr>
-    <tr>
-    <td style="text-align: left;">• Spending a small (). A flexible
-    language introduced by Tao to refer to any step where one purposely
-    “loses” a small amount () in an estimate, so that the rest of the
-    argument becomes simpler.</td>
-    </tr>
-    </tbody>
-    </table>
-    <h2 id="coverings-dyadic-decompositions-and-grids">2) Coverings,
-    Dyadic Decompositions, and Grids</h2>
-    <p>• Dyadic cubes (Q_{n,k}).<br />
-    In (^d), one partitions the space by closed “dyadic cubes” of side
-    length (2^{-n}). These cubes typically align to a grid scaled by
-    powers of 2, i.e.<br />
-    [<br />
-    Q_{n,k} ;=; [,,)[,,),<br />
-    ]<br />
-    where (k=(k_1,,k_d)^d). Dyadic decompositions are essential in
-    constructing step‐wise approximations, covering lemmas, and in
-    Calderón–Zygmund‐type arguments in harmonic analysis.</p>
-    <p>• The Vitali covering lemma / Besicovitch covering lemma.<br />
-    Statements ensuring that from a (possibly huge) family of sets, one
-    can extract a countable subfamily that still covers “most” of the
-    original set. Vitali’s lemma is often used to prove
-    differentiability a.e. for monotone or convex functions, and to show
-    “almost all points are of density one.”</p>
-    <p>• Whitney decomposition.<br />
-    A technique to decompose an open set into disjoint cubes whose
-    sidelengths reflect the distance to the boundary of the set. Widely
-    used in PDEs and real analysis to localize estimates near the
-    boundary.</p>
-    <p>• Tiling / Lattice arguments.<br />
-    Often (^d) is covered by translates of a fixed shape (e.g., cubes,
-    balls). One uses geometry in (^d) to index and keep track of where
-    the function or set is large/small.</p>
-    <table>
-    <colgroup>
-    <col style="width: 100%" />
-    </colgroup>
-    <thead>
-    <tr>
-    <th style="text-align: left;">3) Truncation and Layer‐Cake‐Type
-    Techniques</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-    <td style="text-align: left;">• Splitting according to size
-    (large–small decomposition). In integrals or measure estimates, one
-    often splits a function (f) into (f = f<em>{{|f|&gt;M}} +
-    f</em>{{|f|M}}), then chooses (M) so that each piece is controlled.
-    In measure arguments, one splits a domain into regions ({,|f|&gt;M})
-    and ({,|f|M}).</td>
-    </tr>
-    <tr>
-    <td style="text-align: left;">• Truncation arguments. For instance,
-    replace an integrable (f) by (f_N := ((f,N), -N)). This bounded (and
-    often simple) function is easier to handle, and then let (N). Used
-    in proofs of dominated and monotone convergence, and in
-    approximation lemmas.</td>
-    </tr>
-    <tr>
-    <td style="text-align: left;">• Layer‐cake representation. A
-    technique rewriting a nonnegative measurable function (f(x)) as [
-    f(x) ;=; <em>0^</em>{{f(x)&gt;t}}, dt. ] Integrals of (f) can often
-    be swapped for integrals in the “(t)” variable involving measures of
-    level sets ({x : f(x)&gt;t}). Useful in (L^p) estimates.</td>
-    </tr>
-    </tbody>
-    </table>
-    <h2 id="approximation-schemes-and-convergence-theorems">4)
-    Approximation Schemes and Convergence Theorems</h2>
-    <p>• Simple function / step function approximation.<br />
-    A standard way to handle a general measurable function is to
-    approximate it from below (or above) by step functions (finite
-    linear combinations of characteristic functions of measurable sets).
-    This underlies many proofs in Lebesgue integration theory.</p>
-    <p>• Mollifiers and approximate identities.<br />
-    Convolution with a smooth “bump” function that integrates to 1
-    yields a smooth approximation (f*_). This is crucial in PDE and real
-    analysis for approximating arbitrary (L^p) or continuous functions
-    by smooth ones, without losing control of norms.</p>
-    <p>• Egoroff’s theorem and Lusin’s theorem.<br />
-    – Egoroff: on a set of arbitrarily large measure, a sequence of a.e.
-    convergent functions converges uniformly.<br />
-    – Lusin: any measurable function is continuous (indeed, even smooth
-    if you also use mollifiers) on a large portion of its domain, except
-    for a small set of arbitrarily small measure.</p>
-    <p>• Dominated / Monotone Convergence Theorems; Fatou’s lemma.<br />
-    Fundamental theorems that permit interchanging limits and integrals
-    under appropriate hypotheses (dominance by integrable function, or
-    monotonicity).</p>
-    <p>• Fubini–Tonelli theorems.<br />
-    Allow switching the order of integration. Often stated as: if
-    (fL<sup>1(</sup>d^k)), then almost every slice is integrable
-    and<br />
-    [<br />
-    <em>{^{d+k}} f(x,y), d(x,y)<br />
-    ;=;<br />
-    </em>{^d} (_{^k} f(x,y),dy), dx.<br />
-    ]</p>
-    <table>
-    <colgroup>
-    <col style="width: 100%" />
-    </colgroup>
-    <thead>
-    <tr>
-    <th style="text-align: left;">5) Covering Numbers, ()-Finiteness,
-    and Outer Regularity</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-    <td style="text-align: left;">• Decomposing into ()-finite pieces.
-    Many measure‐theoretic arguments require the ambient ()-algebra or
-    measure space to be ()-finite. In (^d), one often restricts to
-    bounded sets, or breaks (^d) into regions of finite measure to
-    reduce to simpler cases.</td>
-    </tr>
-    <tr>
-    <td style="text-align: left;">• Carathéodory outer measure
-    construction. The standard approach to building Lebesgue measure. It
-    is also a method: showing that a certain “outer measure” is actually
-    a proper measure often uses Carathéodory’s criterion (the measure is
-    translation invariant, subadditive, etc.).</td>
-    </tr>
-    <tr>
-    <td style="text-align: left;">• Regularity of Lebesgue measure.
-    Inner regularity (approximate sets from inside by compact sets) and
-    outer regularity (approximate from outside by open sets). Often used
-    to pass from sets to nicer sets in measure estimates.</td>
-    </tr>
-    </tbody>
-    </table>
-    <h2 id="almost-everywhere-and-null-sets">6) “Almost Everywhere” and
-    Null Sets</h2>
-    <p>• “Ignore a set of measure zero”.<br />
-    A ubiquitous mantra in measure theory: if something happens “outside
-    a set of arbitrarily small measure,” it still holds almost
-    everywhere. We often systematically discard such null sets to
-    simplify arguments.</p>
-    <p>• Cantor‐type constructions and pathological sets.<br />
-    The Cantor set is a classic example of a complicated set of measure
-    zero. Used to exhibit subtleties in measure/analysis (e.g.,
-    nowhere‐dense sets of full Hausdorff dimension, etc.).</p>
-    <p>• Borel–Cantelli lemmas.<br />
-    Statements about when infinitely many events (in measure‐theoretic
-    or probabilistic language) occur, based on summing measures. They
-    often appear in real analysis to show certain points lie in
-    infinitely many sets (or only finitely many).</p>
-    <table>
-    <colgroup>
-    <col style="width: 100%" />
-    </colgroup>
-    <thead>
-    <tr>
-    <th style="text-align: left;">7) Inequalities, Large–Small Splits,
-    and “Good‐()” Methods</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-    <td style="text-align: left;">• Chebyshev / Markov / Tchebychev
-    inequalities. Provide estimates of the measure of ({|f| &gt; }) by
-    (|f|). A one‐line trick that is often the starting point of bigger
-    arguments (e.g. showing a function belongs to (L^p)).</td>
-    </tr>
-    <tr>
-    <td style="text-align: left;">• Good–() inequalities. A technique to
-    prove strong (L^p) estimates by splitting the domain into “good”
-    regions (where the function is relatively small but not too small)
-    and “bad” regions (where the function is large). Well‐known in
-    harmonic analysis (Calderón–Zygmund theory).</td>
-    </tr>
-    <tr>
-    <td style="text-align: left;">• Absorbing constants. If you have an
-    inequality of the form [ A ;; A + C, ] you can rearrange to get (A
-    2C). In other words, “swallow” or “absorb” a fraction of the same
-    quantity from the right‐hand side. This is a prime example of
-    spending an ().</td>
-    </tr>
-    </tbody>
-    </table>
-    <h2 id="diagonalization-and-exhaustion">8) Diagonalization and
-    Exhaustion</h2>
-    <p>• Diagonal argument.<br />
-    Transferring a property from a countable dense subset to the whole
-    space by carefully selecting a sequence that works “for all (n)”
-    simultaneously. Also used in function spaces to extract a single
-    subsequence that converges in multiple topologies at once.</p>
-    <p>• Exhaustion by compact sets (or by bounded sets).<br />
-    A typical argument goes: take an increasing union (K_1 K_2 ) of
-    compact sets so that (_n K_n = ). Prove a fact on each (K_n) (where
-    the problem might be simpler), then let (n ).</p>
-    <table>
-    <colgroup>
-    <col style="width: 100%" />
-    </colgroup>
-    <thead>
-    <tr>
-    <th style="text-align: left;">9) Slicing, Layer‐Cake, and Geometric
-    Arguments</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-    <td style="text-align: left;">• Cavalieri’s principle (“slicing”).
-    Relates the volume (integral) of a set/function in (^d) to the
-    measures of its slices in lower dimensions, e.g. [ <em>{^d} f(x),dx
-    ;=; </em>{-}^{} (_{{x_1 = t}^d} f(x),d x_2!dx_d ) dt. ] A powerful
-    way to reduce some (d)-dimensional problems to (d(-1))-dimensional
-    ones.</td>
-    </tr>
-    <tr>
-    <td style="text-align: left;">• Coarea formula. A generalization of
-    Cavalieri’s principle for nonnegative functions (), expressing [
-    <em>{^d} g(x),|(x)|;dx ;=; </em>{0}^(_{{= t}} g ,dS),dt. ] Widely
-    used in geometric measure theory and PDE.</td>
-    </tr>
-    </tbody>
-    </table>
-    <h2 id="putting-it-all-together">10) Putting It All Together</h2>
-    <p>Many proofs in real analysis and measure theory can be summarized
-    as follows:</p>
-    <ol type="1">
-    <li>Fix (&gt;0).<br />
-    </li>
-    <li>Decompose the domain (often via dyadic cubes, Vitali covers, or
-    slicing) so that each piece is well‐controlled.<br />
-    </li>
-    <li>Truncate or approximate the function (simple function
-    approximation, layer‐cake, or mollifier).<br />
-    </li>
-    <li>Apply a convergence theorem (Dominated, Monotone).<br />
-    </li>
-    <li>“Lose” an () if needed to handle boundary issues, measure‐zero
-    sets, or uniform convergence on large compact subsets.<br />
-    </li>
-    <li>Conclude the argument by letting ().</li>
-    </ol>
-    <p>These standard techniques—Tao’s “epsilons in the room”—reoccur
-    throughout analysis. Mastery of them is essential for tackling the
-    typical “measure‐theoretic lemmas” (e.g., Fubini, Vitali,
-    Borel–Cantelli, approximation theorems, etc.) and viewing advanced
-    topics (Calderón–Zygmund decomposition, maximal functions, geometric
-    measure theory, PDEs) in their natural light.</p>
-    <p>While the list above is already extensive, there are many more
-    localized “tricks” (e.g., Rademacher’s theorem on a.e.
-    differentiability, Whitney extension theorems, special iterations in
-    ergodic theory, etc.). However, the vast majority can be seen as
-    variations or combinations of the fundamental methods surveyed
-    here.</p>
-  </article>
+<div class="custom-nav-header">
+    <a href="index.html" class="nav-home-link">Back to Home</a>
+</div>
+<header id="title-block-header">
+<h1 class="title">Analysis Tricks</h1>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#epsilondelta-epsilonn-arguments"
+id="toc-epsilondelta-epsilonn-arguments">1) Epsilon–Delta / Epsilon–N
+Arguments</a></li>
+<li><a href="#coverings-dyadic-decompositions-and-grids"
+id="toc-coverings-dyadic-decompositions-and-grids">2) Coverings, Dyadic
+Decompositions, and Grids</a></li>
+<li><a href="#truncation-and-layercaketype-techniques"
+id="toc-truncation-and-layercaketype-techniques">3) Truncation and
+Layer‐Cake‐Type Techniques</a></li>
+<li><a href="#approximation-schemes-and-convergence-theorems"
+id="toc-approximation-schemes-and-convergence-theorems">4) Approximation
+Schemes and Convergence Theorems</a></li>
+<li><a href="#covering-numbers-sigma-finiteness-and-outer-regularity"
+id="toc-covering-numbers-sigma-finiteness-and-outer-regularity">5)
+Covering Numbers, <span class="math inline">\sigma</span>-Finiteness,
+and Outer Regularity</a></li>
+<li><a href="#almost-everywhere-and-null-sets"
+id="toc-almost-everywhere-and-null-sets">6) “Almost Everywhere” and Null
+Sets</a></li>
+<li><a href="#inequalities-largesmall-splits-and-goodlambda-methods"
+id="toc-inequalities-largesmall-splits-and-goodlambda-methods">7)
+Inequalities, Large–Small Splits, and “Good‐<span
+class="math inline">\lambda</span>” Methods</a></li>
+<li><a href="#diagonalization-and-exhaustion"
+id="toc-diagonalization-and-exhaustion">8) Diagonalization and
+Exhaustion</a></li>
+<li><a href="#slicing-layercake-and-geometric-arguments"
+id="toc-slicing-layercake-and-geometric-arguments">9) Slicing,
+Layer‐Cake, and Geometric Arguments</a></li>
+<li><a href="#putting-it-all-together"
+id="toc-putting-it-all-together">10) Putting It All Together</a></li>
+</ul>
+</nav>
+<p>Below is a (necessarily incomplete) “tool‐kit” of standard methods
+and “tricks” frequently employed in real analysis and measure theory in
+<span class="math inline">\mathbb{R}^d</span>. They appear repeatedly in
+proofs of classical theorems and estimates, and many of them have been
+famously described as “an epsilon in the room” by Terence Tao. The list
+is grouped by theme for convenience; in practice these techniques often
+blend together.</p>
+<hr />
+<h2 id="epsilondelta-epsilonn-arguments">1) Epsilon–Delta / Epsilon–N
+Arguments</h2>
+<p>• (Classical) <span class="math inline">\varepsilon</span>–<span
+class="math inline">\delta</span> proofs.<br />
+The most basic limiting procedure: given <span
+class="math inline">\varepsilon &gt; 0</span>, find a <span
+class="math inline">\delta &gt; 0</span> (or other small parameter)
+ensuring a certain property holds. Used everywhere from basic topology
+(defining continuity) to measure‐theoretic convergence statements.</p>
+<p>• <span class="math inline">\varepsilon/2^n</span> (or “halving”)
+trick.<br />
+Instead of trying to fit an entire small <span
+class="math inline">\varepsilon</span> at once, one splits an <span
+class="math inline">\varepsilon</span> into (finitely or countably many)
+smaller pieces <span class="math inline">\tfrac{\varepsilon}{2},
+\tfrac{\varepsilon}{4}, \dots</span> so that each piece can be handled
+more easily. Often seen in proofs of uniform convergence or in
+constructing countable covers.</p>
+<p>• Spending a small <span
+class="math inline">\varepsilon</span>.<br />
+A flexible language introduced by Tao to refer to any step where one
+purposely “loses” a small amount <span
+class="math inline">\varepsilon</span> in an estimate, so that the rest
+of the argument becomes simpler.</p>
+<hr />
+<h2 id="coverings-dyadic-decompositions-and-grids">2) Coverings, Dyadic
+Decompositions, and Grids</h2>
+<p>• Dyadic cubes <span class="math inline">Q_{n,k}</span>.<br />
+In <span class="math inline">\mathbb{R}^d</span>, one partitions the
+space by closed “dyadic cubes” of side length <span
+class="math inline">2^{-n}</span>. These cubes typically align to a grid
+scaled by powers of 2, i.e.<br />
+<span class="math display">  
+    Q_{n,k} \;=\;
+\Bigl[\tfrac{k_1}{2^n},\,\tfrac{k_1+1}{2^n}\Bigr)\times \cdots \times
+\Bigl[\tfrac{k_d}{2^n},\,\tfrac{k_d+1}{2^n}\Bigr),  
+  </span><br />
+where <span class="math inline">k=(k_1,\dots,k_d)\in
+\mathbb{Z}^d</span>. Dyadic decompositions are essential in constructing
+step‐wise approximations, covering lemmas, and in Calderón–Zygmund‐type
+arguments in harmonic analysis.</p>
+<p>• The Vitali covering lemma / Besicovitch covering lemma.<br />
+Statements ensuring that from a (possibly huge) family of sets, one can
+extract a countable subfamily that still covers “most” of the original
+set. Vitali’s lemma is often used to prove differentiability a.e. for
+monotone or convex functions, and to show “almost all points are of
+density one.”</p>
+<p>• Whitney decomposition.<br />
+A technique to decompose an open set into disjoint cubes whose
+sidelengths reflect the distance to the boundary of the set. Widely used
+in PDEs and real analysis to localize estimates near the boundary.</p>
+<p>• Tiling / Lattice arguments.<br />
+Often <span class="math inline">\mathbb{R}^d</span> is covered by
+translates of a fixed shape (e.g., cubes, balls). One uses geometry in
+<span class="math inline">\mathbb{Z}^d</span> to index and keep track of
+where the function or set is large/small.</p>
+<hr />
+<h2 id="truncation-and-layercaketype-techniques">3) Truncation and
+Layer‐Cake‐Type Techniques</h2>
+<p>• Splitting according to size (large–small decomposition).<br />
+In integrals or measure estimates, one often splits a function <span
+class="math inline">f</span> into <span class="math inline">f =
+f\mathbf{1}_{\{|f|&gt;M\}} + f\mathbf{1}_{\{|f|\le M\}}</span>, then
+chooses <span class="math inline">M</span> so that each piece is
+controlled. In measure arguments, one splits a domain into regions <span
+class="math inline">\{\,|f|&gt;M\}</span> and <span
+class="math inline">\{\,|f|\le M\}</span>.</p>
+<p>• Truncation arguments.<br />
+For instance, replace an integrable <span class="math inline">f</span>
+by <span class="math inline">f_N := \max(\min(f,N), -N)</span>. This
+bounded (and often simple) function is easier to handle, and then let
+<span class="math inline">N\to \infty</span>. Used in proofs of
+dominated and monotone convergence, and in approximation lemmas.</p>
+<p>• Layer‐cake representation.<br />
+A technique rewriting a nonnegative measurable function <span
+class="math inline">f(x)</span> as<br />
+<span class="math display">  
+    f(x) \;=\; \int_0^\infty \mathbf{1}_{\{f(x)&gt;t\}}\, dt.  
+  </span><br />
+Integrals of <span class="math inline">f</span> can often be swapped for
+integrals in the “<span class="math inline">t</span>” variable involving
+measures of level sets <span class="math inline">\{x :
+f(x)&gt;t\}</span>. Useful in <span class="math inline">L^p</span>
+estimates.</p>
+<hr />
+<h2 id="approximation-schemes-and-convergence-theorems">4) Approximation
+Schemes and Convergence Theorems</h2>
+<p>• Simple function / step function approximation.<br />
+A standard way to handle a general measurable function is to approximate
+it from below (or above) by step functions (finite linear combinations
+of characteristic functions of measurable sets). This underlies many
+proofs in Lebesgue integration theory.</p>
+<p>• Mollifiers and approximate identities.<br />
+Convolution with a smooth “bump” function that integrates to 1 yields a
+smooth approximation <span
+class="math inline">f*\varphi_\varepsilon</span>. This is crucial in PDE
+and real analysis for approximating arbitrary <span
+class="math inline">L^p</span> or continuous functions by smooth ones,
+without losing control of norms.</p>
+<p>• Egoroff’s theorem and Lusin’s theorem.<br />
+– Egoroff: on a set of arbitrarily large measure, a sequence of a.e.
+convergent functions converges uniformly.<br />
+– Lusin: any measurable function is continuous (indeed, even smooth if
+you also use mollifiers) on a large portion of its domain, except for a
+small set of arbitrarily small measure.</p>
+<p>• Dominated / Monotone Convergence Theorems; Fatou’s lemma.<br />
+Fundamental theorems that permit interchanging limits and integrals
+under appropriate hypotheses (dominance by integrable function, or
+monotonicity).</p>
+<p>• Fubini–Tonelli theorems.<br />
+Allow switching the order of integration. Often stated as: if <span
+class="math inline">f\in L^1(\mathbb{R}^d\times \mathbb{R}^k)</span>,
+then almost every slice is integrable and<br />
+<span class="math display">  
+    \int_{\mathbb{R}^{d+k}} f(x,y)\, d(x,y)   
+    \;=\;  
+    \int_{\mathbb{R}^d} \Bigl(\int_{\mathbb{R}^k} f(x,y)\,dy\Bigr)\,
+dx.  
+  </span></p>
+<hr />
+<h2 id="covering-numbers-sigma-finiteness-and-outer-regularity">5)
+Covering Numbers, <span class="math inline">\sigma</span>-Finiteness,
+and Outer Regularity</h2>
+<p>• Decomposing into <span class="math inline">\sigma</span>-finite
+pieces.<br />
+Many measure‐theoretic arguments require the ambient <span
+class="math inline">\sigma</span>-algebra or measure space to be <span
+class="math inline">\sigma</span>-finite. In <span
+class="math inline">\mathbb{R}^d</span>, one often restricts to bounded
+sets, or breaks <span class="math inline">\mathbb{R}^d</span> into
+regions of finite measure to reduce to simpler cases.</p>
+<p>• Carathéodory outer measure construction.<br />
+The standard approach to building Lebesgue measure. It is also a method:
+showing that a certain “outer measure” is actually a proper measure
+often uses Carathéodory’s criterion (the measure is translation
+invariant, subadditive, etc.).</p>
+<p>• Regularity of Lebesgue measure.<br />
+Inner regularity (approximate sets from inside by compact sets) and
+outer regularity (approximate from outside by open sets). Often used to
+pass from sets to nicer sets in measure estimates.</p>
+<hr />
+<h2 id="almost-everywhere-and-null-sets">6) “Almost Everywhere” and Null
+Sets</h2>
+<p>• “Ignore a set of measure zero”.<br />
+A ubiquitous mantra in measure theory: if something happens “outside a
+set of arbitrarily small measure,” it still holds almost everywhere. We
+often systematically discard such null sets to simplify arguments.</p>
+<p>• Cantor‐type constructions and pathological sets.<br />
+The Cantor set is a classic example of a complicated set of measure
+zero. Used to exhibit subtleties in measure/analysis (e.g.,
+nowhere‐dense sets of full Hausdorff dimension, etc.).</p>
+<p>• Borel–Cantelli lemmas.<br />
+Statements about when infinitely many events (in measure‐theoretic or
+probabilistic language) occur, based on summing measures. They often
+appear in real analysis to show certain points lie in infinitely many
+sets (or only finitely many).</p>
+<hr />
+<h2 id="inequalities-largesmall-splits-and-goodlambda-methods">7)
+Inequalities, Large–Small Splits, and “Good‐<span
+class="math inline">\lambda</span>” Methods</h2>
+<p>• Chebyshev / Markov / Tchebychev inequalities.<br />
+Provide estimates of the measure of <span class="math inline">\{|f| &gt;
+\alpha\}</span> by <span class="math inline">\frac{1}{\alpha}\int
+|f|</span>. A one‐line trick that is often the starting point of bigger
+arguments (e.g. showing a function belongs to <span
+class="math inline">L^p</span>).</p>
+<p>• Good–<span class="math inline">\lambda</span> inequalities.<br />
+A technique to prove strong <span class="math inline">L^p</span>
+estimates by splitting the domain into “good” regions (where the
+function is relatively small but not too small) and “bad” regions (where
+the function is large). Well‐known in harmonic analysis
+(Calderón–Zygmund theory).</p>
+<p>• Absorbing constants.<br />
+If you have an inequality of the form<br />
+<span class="math display">  
+    A \;\le\; \frac{1}{2}A + C,  
+  </span><br />
+you can rearrange to get <span class="math inline">A \le 2C</span>. In
+other words, “swallow” or “absorb” a fraction of the same quantity from
+the right‐hand side. This is a prime example of spending an <span
+class="math inline">\varepsilon</span>.</p>
+<hr />
+<h2 id="diagonalization-and-exhaustion">8) Diagonalization and
+Exhaustion</h2>
+<p>• Diagonal argument.<br />
+Transferring a property from a countable dense subset to the whole space
+by carefully selecting a sequence that works “for all <span
+class="math inline">n</span>” simultaneously. Also used in function
+spaces to extract a single subsequence that converges in multiple
+topologies at once.</p>
+<p>• Exhaustion by compact sets (or by bounded sets).<br />
+A typical argument goes: take an increasing union <span
+class="math inline">K_1 \subset K_2 \subset \cdots</span> of compact
+sets so that <span class="math inline">\bigcup_n K_n = \Omega</span>.
+Prove a fact on each <span class="math inline">K_n</span> (where the
+problem might be simpler), then let <span class="math inline">n \to
+\infty</span>.</p>
+<hr />
+<h2 id="slicing-layercake-and-geometric-arguments">9) Slicing,
+Layer‐Cake, and Geometric Arguments</h2>
+<p>• Cavalieri’s principle (“slicing”).<br />
+Relates the volume (integral) of a set/function in <span
+class="math inline">\mathbb{R}^d</span> to the measures of its slices in
+lower dimensions, e.g.<br />
+<span class="math display">  
+    \int_{\mathbb{R}^d} f(x)\,dx   
+    \;=\;   
+    \int_{-\infty}^{\infty} \Bigl(\int_{\{x_1 = t\}\subset \mathbb{R}^d}
+f(x)\,d x_2\!\cdots dx_d \Bigr) dt.  
+  </span><br />
+A powerful way to reduce some <span
+class="math inline">d</span>-dimensional problems to (d<span
+class="math inline">-1</span>)-dimensional ones.</p>
+<p>• Coarea formula.<br />
+A generalization of Cavalieri’s principle for nonnegative functions
+<span class="math inline">\varphi</span>, expressing<br />
+<span class="math display">  
+    \int_{\mathbb{R}^d} g(x)\,\|\nabla \varphi(x)\|\;dx   
+    \;=\;   
+    \int_{0}^\infty \Bigl(\int_{\{\varphi = t\}} g \,dS\Bigr)\,dt.  
+  </span><br />
+Widely used in geometric measure theory and PDE.</p>
+<hr />
+<h2 id="putting-it-all-together">10) Putting It All Together</h2>
+<p>Many proofs in real analysis and measure theory can be summarized as
+follows:</p>
+<ol type="1">
+<li>Fix <span class="math inline">\varepsilon&gt;0</span>.<br />
+</li>
+<li>Decompose the domain (often via dyadic cubes, Vitali covers, or
+slicing) so that each piece is well‐controlled.<br />
+</li>
+<li>Truncate or approximate the function (simple function approximation,
+layer‐cake, or mollifier).<br />
+</li>
+<li>Apply a convergence theorem (Dominated, Monotone).<br />
+</li>
+<li>“Lose” an <span class="math inline">\varepsilon</span> if needed to
+handle boundary issues, measure‐zero sets, or uniform convergence on
+large compact subsets.<br />
+</li>
+<li>Conclude the argument by letting <span
+class="math inline">\varepsilon \to 0</span>.</li>
+</ol>
+<p>These standard techniques—Tao’s “epsilons in the room”—reoccur
+throughout analysis. Mastery of them is essential for tackling the
+typical “measure‐theoretic lemmas” (e.g., Fubini, Vitali,
+Borel–Cantelli, approximation theorems, etc.) and viewing advanced
+topics (Calderón–Zygmund decomposition, maximal functions, geometric
+measure theory, PDEs) in their natural light.</p>
+<p>While the list above is already extensive, there are many more
+localized “tricks” (e.g., Rademacher’s theorem on a.e.
+differentiability, Whitney extension theorems, special iterations in
+ergodic theory, etc.). However, the vast majority can be seen as
+variations or combinations of the fundamental methods surveyed here.</p>
 </body>
 </html>

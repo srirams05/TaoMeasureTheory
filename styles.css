@@ -1,24 +1,65 @@
 /* Basic Styles */
 body {
   font-family: "Times New Roman", serif; /* Specify Times New Roman */
-  font-size: 24px; /* Set font size for body */
-  line-height: 1.6;
-  margin: 20px;
+  font-size: 22px; /* Set font size for body */
+  line-height: 1.4;
+  /* Apply margin individually */
+  margin-top: 20px;
+  margin-right: 20px; /* Margin outside the padding */
+  margin-bottom: 20px;
+  /* NEW margin-left = 300px (new sidebar width) + 40px (gap) */
+  margin-left: 340px;
+  /* NEW padding inside the body content area */
+  padding-left: 30px;
+  padding-right: 30px;
   background-color: #f8f8f8; /* Light neutral background */
   color: #333; /* Darker text color for better contrast */
+  box-sizing: border-box; /* Ensure padding doesn't add to total width if needed */
 }
 
-/* Navigation (TOC) Styles */
-nav {
+/* Styles for the manually injected "Back to Home" header */
+.custom-nav-header {
+  position: fixed; /* Position it like the nav */
   top: 0;
+  left: 0;
+  /* NEW sidebar width */
+  width: 300px;
+  padding: 20px 20px 15px 20px; /* T R B L */
+  box-sizing: border-box; /* Include padding in width */
+  background-color: #fff; /* Match nav background */
+  z-index: 10; /* Ensure it's above the scrolling TOC */
+  border-bottom: 1px solid #ccc;
+}
+
+.custom-nav-header .nav-home-link {
+  display: block;
+  text-align: left;
+  font-weight: bold;
+  font-size: 20px; /* Match TOC font size */
+  text-decoration: none;
+  color: #336699; /* Match nav link color */
+  padding-bottom: 0;
+}
+
+ .custom-nav-header .nav-home-link:hover {
+   text-decoration: underline;
+ }
+
+/* Navigation (TOC) Styles - Targeting Pandoc's default TOC ID */
+nav#TOC {
+  /* Push TOC down below the custom header */
+  /* This value might need fine-tuning based on inspecting the header height */
+  top: 70px; /* <<< FINE TUNE THIS based on header height */
+
   left: 0;
   bottom: 0;
   position: fixed;
-  /*float: left;*/
-  width: 240px; /* Adjust width as needed */
-  margin-right: 20px;
+  /* NEW sidebar width */
+  width: 300px;
+  /* Removed margin-right as gap is controlled by body margin */
   border-right: 1px solid #ccc;
-  padding: 20px;
+  padding: 20px; /* T R B L */
+  box-sizing: border-box; /* Ensure padding is included */
   overflow-y: scroll;
   font-family: "Times New Roman", serif; /* Set font family for nav */
   font-size: 20px; /* Set font size for nav */
@@ -26,13 +67,13 @@ nav {
   box-shadow: 2px 0 5px rgba(0,0,0,0.1); /* Subtle shadow */
 }
 
-nav ul {
+nav#TOC ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-nav li a {
+nav#TOC li a {
   display: block;
   padding: 5px 0;
   text-decoration: none;
@@ -40,23 +81,42 @@ nav li a {
   transition: background-color 0.2s ease; /* Smooth transition for hover effect */
 }
 
-nav li a:hover {
+nav#TOC li a:hover {
   background-color: #f0f0f0;
   text-decoration: underline;
 }
 
-/* Main Content Styles */
-article {
-  margin-left: 280px;
-  overflow: auto; 
-}
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    /* Adjust fixed elements for static flow */
+    .custom-nav-header {
+      position: static;
+      width: 100%;
+      border: none;
+      box-shadow: none;
+      padding-bottom: 0;
+      border-bottom: 1px solid #eee;
+    }
 
-/* Responsive adjustments (optional) */
-@media (max-width: 768px) { 
-    nav {
-        float: none; 
-        width: 100%; 
+    nav#TOC {
+        position: static;
+        float: none;
+        width: 100%;
         margin-bottom: 20px;
-        border: none; 
+        border: none;
+        box-shadow: none;
+        height: auto;
+        overflow-y: visible;
+        padding: 10px 20px;
+        box-sizing: border-box;
+    }
+
+    /* Adjust body margin and padding for small screens */
+    body {
+        margin-left: 20px; /* Smaller margin when sidebar is gone */
+        margin-right: 20px;
+        /* Keep side padding for text readability */
+        padding-left: 15px;
+        padding-right: 15px;
     }
 }
